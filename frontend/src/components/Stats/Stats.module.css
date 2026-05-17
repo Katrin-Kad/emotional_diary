@@ -248,7 +248,7 @@
 
 @media (max-width: 560px) {
   .insightRow { flex-direction: column; align-items: center; }
-  .insightMascot { width: 180px; margin-top: 0; }
+  .insightMascot { width: 240px; margin-top: 0; }
   .insightBubble::after { display: none; }
   .summaryRow { flex-wrap: wrap; }
   .summaryCard { min-width: calc(50% - 8px); padding: 20px 12px; }

@@ -104,7 +104,7 @@
 
 @media (max-width: 640px) {
   .diaryTop { flex-direction: column; align-items: center; margin-bottom: 20px; }
-  .mascotCol { width: 180px; margin-left: 0; }
+  .mascotCol { width: 240px; margin-left: 0; }
   .tagsRow { flex-wrap: wrap; justify-content: flex-start; }
   .entryCardInner { padding: 16px; }
 }
