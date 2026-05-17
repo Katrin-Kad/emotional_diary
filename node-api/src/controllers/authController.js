@@ -27,6 +27,7 @@ exports.register = async (req, res) => {
     const ab_variant = user.id % 2 === 0 ? 'b' : 'a';
     await db.query('UPDATE users SET ab_variant = $1 WHERE id = $2', [ab_variant, user.id]);
 
+    res.cookie('ab', ab_variant, AB_COOKIE_OPTIONS);
     res.status(201).json(user);
   } catch (err) {
     console.error(err);
