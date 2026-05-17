@@ -2,6 +2,13 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const db = require('../db');
 
+const AB_COOKIE_OPTIONS = {
+  secure: process.env.COOKIE_SECURE === 'true',
+  sameSite: 'Lax',
+  maxAge: 365 * 24 * 60 * 60 * 1000,
+  path: '/',
+};
+
 exports.register = async (req, res) => {
   const { email, password, name, gender } = req.body;
   if (!email || !password) return res.status(400).json({ error: 'Email and password required' });
@@ -15,7 +22,12 @@ exports.register = async (req, res) => {
       'INSERT INTO users (email, password_hash, name, gender) VALUES ($1, $2, $3, $4) RETURNING id, email, name, gender',
       [email, password_hash, name || null, gender || null]
     );
-    res.status(201).json(result.rows[0]);
+    const user = result.rows[0];
+
+    const ab_variant = user.id % 2 === 0 ? 'b' : 'a';
+    await db.query('UPDATE users SET ab_variant = $1 WHERE id = $2', [ab_variant, user.id]);
+
+    res.status(201).json(user);
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Server error' });
@@ -41,6 +53,7 @@ exports.login = async (req, res) => {
       sameSite: 'Lax',
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
+    res.cookie('ab', user.ab_variant, AB_COOKIE_OPTIONS);
     res.json({ message: 'Logged in', name: user.name });
   } catch (err) {
     console.error(err);

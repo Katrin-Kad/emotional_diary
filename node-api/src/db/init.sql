@@ -4,6 +4,7 @@ CREATE TABLE IF NOT EXISTS users (
   password_hash VARCHAR(255) NOT NULL,
   name VARCHAR(255),
   gender VARCHAR(50),
+  ab_variant VARCHAR(1) NOT NULL DEFAULT 'a',
   created_at TIMESTAMP DEFAULT NOW()
 );
 
