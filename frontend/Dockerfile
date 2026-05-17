@@ -4,7 +4,8 @@ COPY package*.json ./
 RUN npm install
 COPY . .
 ARG VARIANT=a
-ENV VITE_VARIANT=$VARIANT
+ARG VITE_VARIANT=$VARIANT
+ENV VITE_VARIANT=$VITE_VARIANT
 RUN npm run build
 
 FROM nginx:1.27-alpine
