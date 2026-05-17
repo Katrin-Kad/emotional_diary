@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 const db = require('../db');
 
 exports.register = async (req, res) => {
-  const { email, password } = req.body;
+  const { email, password, name, gender } = req.body;
   if (!email || !password) return res.status(400).json({ error: 'Email and password required' });
 
   try {
@@ -12,8 +12,8 @@ exports.register = async (req, res) => {
 
     const password_hash = await bcrypt.hash(password, 10);
     const result = await db.query(
-      'INSERT INTO users (email, password_hash) VALUES ($1, $2) RETURNING id, email',
-      [email, password_hash]
+      'INSERT INTO users (email, password_hash, name, gender) VALUES ($1, $2, $3, $4) RETURNING id, email, name, gender',
+      [email, password_hash, name || null, gender || null]
     );
     res.status(201).json(result.rows[0]);
   } catch (err) {
@@ -37,11 +37,11 @@ exports.login = async (req, res) => {
     const token = jwt.sign({ id: user.id, email: user.email }, process.env.JWT_SECRET, { expiresIn: '7d' });
     res.cookie('token', token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'Strict',
+      secure: process.env.COOKIE_SECURE === 'true',
+      sameSite: 'Lax',
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
-    res.json({ message: 'Logged in' });
+    res.json({ message: 'Logged in', name: user.name });
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Server error' });

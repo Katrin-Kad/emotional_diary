@@ -1,19 +1,14 @@
 import { useState, useEffect } from 'react';
 import { api } from './api';
-import Auth, { applyTheme } from './components/Auth';
-import NewEntry from './components/NewEntry';
-import EntriesList from './components/EntriesList';
-import Stats from './components/Stats';
-
-const TABS = [
-  { id: 'new', label: 'Запись' },
-  { id: 'entries', label: 'Дневник' },
-  { id: 'stats', label: 'Статистика' },
-];
+import Auth, { applyTheme } from './components/Auth/Auth';
+import NewEntry from './components/NewEntry/NewEntry';
+import Stats from './components/Stats/Stats';
+import styles from './App.module.css';
+import { ym, YM_ID } from './ym';
 
 export default function App() {
   const [authed, setAuthed] = useState(null);
-  const [tab, setTab] = useState('new');
+  const [tab, setTab] = useState('diary');
 
   useEffect(() => {
     api.getEntries(1, 1)
@@ -21,34 +16,72 @@ export default function App() {
       .catch(() => setAuthed(false));
   }, []);
 
+  // Инициализируем счётчик и трекаем первую страницу после авторизации
+  useEffect(() => {
+    if (!authed || !YM_ID) return;
+    window.ym?.(YM_ID, 'init', {
+      clickmap: true, trackLinks: true, accurateTrackBounce: true, webvisor: true,
+    });
+    ym('hit', '/diary');
+  }, [authed]);
+
   const logout = async () => {
     await api.logout().catch(() => {});
     applyTheme('нейтральный');
     setAuthed(false);
   };
 
-  if (authed === null) return <div className="spinner" style={{ paddingTop: 80 }}>Загрузка...</div>;
-
+  if (authed === null) return <div className="spinner" style={{ paddingTop: 120 }}>Загрузка...</div>;
   if (!authed) return <Auth onLogin={() => setAuthed(true)} />;
 
   return (
-    <div className="app">
-      <header>
-        <h1>Дневник</h1>
-        <button className="btn btn-ghost btn-sm" onClick={logout}>Выйти</button>
+    <div>
+      <header className={styles.appHeader}>
+        <div className={styles.appHeaderInner}>
+          <span className={styles.appLogo}>Affecta</span>
+          <nav className={styles.navTabs}>
+            <button
+              className={`${styles.navTab} ${tab === 'diary' ? styles.active : ''}`}
+              onClick={() => { setTab('diary'); ym('hit', '/diary'); }}
+            >
+              Дневник эмоций
+            </button>
+            <button
+              className={`${styles.navTab} ${tab === 'stats' ? styles.active : ''}`}
+              onClick={() => { setTab('stats'); ym('hit', '/analytics'); }}
+            >
+              Аналитика
+            </button>
+          </nav>
+          <div className={styles.headerRight}>
+            <button className="btn btn-ghost" onClick={logout}>Выйти</button>
+          </div>
+        </div>
       </header>
 
-      <nav className="nav-tabs">
-        {TABS.map(t => (
-          <button key={t.id} className={`nav-tab ${tab === t.id ? 'active' : ''}`} onClick={() => setTab(t.id)}>
-            {t.label}
-          </button>
-        ))}
-      </nav>
+      <main className={styles.app}>
+        {tab === 'diary' && <NewEntry />}
+        {tab === 'stats' && <Stats />}
+      </main>
 
-      {tab === 'new' && <NewEntry />}
-      {tab === 'entries' && <EntriesList />}
-      {tab === 'stats' && <Stats />}
+      <footer className={styles.appFooter}>
+        <div className={styles.footerLeft}>
+          <span>©2026 Affecta</span>
+          <a href="#">О нас</a>
+          <a href="#">Контакты</a>
+        </div>
+        <div className={styles.footerSocial}>
+          <a href="#" className={styles.socialIcon} title="ВКонтакте">
+            <img src="/assets/vk.svg" alt="ВКонтакте" />
+          </a>
+          <a href="#" className={styles.socialIcon} title="Telegram">
+            <img src="/assets/telegram.svg" alt="Telegram" />
+          </a>
+          <a href="#" className={styles.socialIcon} title="Twitter">
+            <img src="/assets/twitter.svg" alt="Twitter" />
+          </a>
+        </div>
+      </footer>
     </div>
   );
 }

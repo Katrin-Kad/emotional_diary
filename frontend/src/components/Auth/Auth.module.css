@@ -1,0 +1,66 @@
+.authPage {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 16px;
+  background: #E8ECFF;
+}
+
+.authLogo {
+  font-family: 'Koh Santepheap', Georgia, serif;
+  font-weight: 400;
+  font-size: 3.8rem;
+  color: var(--accent);
+  margin-bottom: 24px;
+  letter-spacing: 0;
+}
+
+.authCard {
+  background: #fff;
+  border-radius: 20px;
+  padding: 32px 36px;
+  width: 100%;
+  max-width: 440px;
+  box-shadow: var(--shadow);
+}
+
+.authCardTitle {
+  font-family: 'Inria Sans', Georgia, serif;
+  font-weight: 700;
+  font-size: 1.25rem;
+  color: var(--accent);
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.formRow {
+  display: flex;
+  gap: 12px;
+}
+.formRow > * { flex: 1; }
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.authLink {
+  font-family: 'Jost', sans-serif;
+  font-size: 0.85rem;
+  color: var(--accent);
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  text-decoration: underline;
+}
+.authLink:hover { opacity: 0.75; }
+
+.authLinksRow {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: -6px;
+}

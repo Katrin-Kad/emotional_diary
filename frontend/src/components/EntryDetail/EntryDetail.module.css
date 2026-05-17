@@ -1,0 +1,198 @@
+.page {
+  font-family: 'Jost', sans-serif;
+}
+
+/* ── Top bar (back + date, inside content) ── */
+.topBar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 6px;
+}
+
+.backBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  border: 1.5px solid #d8ddf0;
+  background: transparent;
+  color: rgba(0, 0, 0, 0.45);
+  cursor: pointer;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+.backBtn:hover { border-color: var(--accent); color: var(--accent); }
+
+.headerTitle {
+  font-family: 'Inria Sans', Georgia, serif;
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--accent);
+}
+
+/* ── Content ── */
+.content {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 28px 24px 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* ── Card ── */
+.card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 20px 24px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+.timestamp {
+  font-size: 0.78rem;
+  color: rgba(0, 0, 0, 0.35);
+  margin-bottom: 10px;
+}
+
+.entryText {
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: rgba(0, 0, 0, 0.69);
+  margin: 0 0 14px;
+}
+
+.tagsRow {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.tagChip {
+  padding: 3px 12px;
+  border-radius: 20px;
+  border: 1.5px solid #d1d8f0;
+  font-size: 0.8rem;
+  color: rgba(0, 0, 0, 0.55);
+}
+
+/* ── Emotion row ── */
+.emotionRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.emotionDot {
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.emotionName {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.69);
+  flex: 1;
+}
+
+.sphereBadge {
+  font-size: 0.78rem;
+  color: rgba(0, 0, 0, 0.35);
+}
+
+/* ── Mascot recommendation ── */
+.mascotRow {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.emotionCircle {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.mascotText { flex: 1; }
+
+.empathy {
+  font-size: 0.7rem;
+  color: rgba(0, 0, 0, 0.35);
+  margin-bottom: 5px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 600;
+}
+
+.recommendation {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: rgba(0, 0, 0, 0.69);
+}
+
+/* ── Strategies ── */
+.strategiesSection {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.strategiesTitle {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: rgba(0, 0, 0, 0.35);
+  margin-bottom: 2px;
+}
+
+.strategyCard {
+  background: #fff;
+  border-radius: 14px;
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+.strategyIcon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.strategyInfo { flex: 1; min-width: 0; }
+
+.strategyName {
+  font-size: 0.92rem;
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.69);
+  margin-bottom: 2px;
+}
+
+.strategyMeta {
+  font-size: 0.78rem;
+  color: rgba(0, 0, 0, 0.35);
+}
+
+.recommendedBadge {
+  padding: 4px 12px;
+  border-radius: 20px;
+  border: 1.5px solid var(--accent);
+  font-size: 0.72rem;
+  color: var(--accent);
+  white-space: nowrap;
+  flex-shrink: 0;
+}

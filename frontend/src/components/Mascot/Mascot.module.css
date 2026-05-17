@@ -1,0 +1,7 @@
+.mascotVideo {
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+  display: block;
+  mix-blend-mode: multiply;
+}

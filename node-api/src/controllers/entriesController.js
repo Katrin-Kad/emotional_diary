@@ -10,9 +10,12 @@ exports.createEntry = async (req, res) => {
   try {
     const { emotion, score } = await nlpService.analyzeEmotion(text);
 
+    const primaryTag = tags[0] || null;
+    const { recommendation } = await knowledgeBase.getRecommendation(emotion, primaryTag);
+
     const entryResult = await db.query(
-      'INSERT INTO entries (user_id, text, emotion, emotion_score) VALUES ($1, $2, $3, $4) RETURNING id',
-      [userId, text, emotion, score]
+      'INSERT INTO entries (user_id, text, emotion, emotion_score, recommendation) VALUES ($1, $2, $3, $4, $5) RETURNING id',
+      [userId, text, emotion, score, recommendation]
     );
     const entryId = entryResult.rows[0].id;
 
@@ -26,9 +29,6 @@ exports.createEntry = async (req, res) => {
       }
     }
 
-    const primaryTag = tags[0] || null;
-    const { recommendation } = await knowledgeBase.getRecommendation(emotion, primaryTag);
-
     res.json({ entryId, emotion, score, recommendation });
   } catch (err) {
     console.error(err);
@@ -41,29 +41,42 @@ exports.getEntries = async (req, res) => {
   const page = Math.max(1, parseInt(req.query.page) || 1);
   const limit = Math.min(100, Math.max(1, parseInt(req.query.limit) || 10));
   const offset = (page - 1) * limit;
+  const { date } = req.query;
 
   try {
-    const totalResult = await db.query('SELECT COUNT(*) FROM entries WHERE user_id = $1', [userId]);
+    const countParams = [userId];
+    let countQuery = 'SELECT COUNT(*) FROM entries WHERE user_id = $1';
+    if (date) {
+      countParams.push(date);
+      countQuery += ` AND DATE(created_at) = $2`;
+    }
+    const totalResult = await db.query(countQuery, countParams);
     const total = parseInt(totalResult.rows[0].count);
 
-    const result = await db.query(
-      `SELECT e.id, e.text, e.emotion, e.created_at,
-         COALESCE(array_agg(t.name) FILTER (WHERE t.name IS NOT NULL), '{}') AS tags
-       FROM entries e
-       LEFT JOIN entry_tags et ON et.entry_id = e.id
-       LEFT JOIN tags t ON t.id = et.tag_id
-       WHERE e.user_id = $1
-       GROUP BY e.id
-       ORDER BY e.created_at DESC
-       LIMIT $2 OFFSET $3`,
-      [userId, limit, offset]
-    );
+    const params = [userId];
+    let query = `
+      SELECT e.id, e.text, e.emotion, e.emotion_score, e.recommendation, e.created_at,
+             COALESCE(array_agg(t.name) FILTER (WHERE t.name IS NOT NULL), '{}') AS tags
+      FROM entries e
+      LEFT JOIN entry_tags et ON et.entry_id = e.id
+      LEFT JOIN tags t ON t.id = et.tag_id
+      WHERE e.user_id = $1`;
+    if (date) {
+      params.push(date);
+      query += ` AND DATE(e.created_at) = $${params.length}`;
+    }
+    params.push(limit, offset);
+    query += ` GROUP BY e.id ORDER BY e.created_at DESC LIMIT $${params.length - 1} OFFSET $${params.length}`;
+
+    const result = await db.query(query, params);
 
     res.json({
       data: result.rows.map((r) => ({
         id: r.id,
         text: r.text,
         emotion: r.emotion,
+        score: r.emotion_score,
+        recommendation: r.recommendation,
         tags: r.tags,
         createdAt: r.created_at,
       })),
@@ -82,8 +95,8 @@ exports.getEntry = async (req, res) => {
 
   try {
     const result = await db.query(
-      `SELECT e.id, e.text, e.emotion, e.emotion_score, e.created_at,
-         COALESCE(array_agg(t.name) FILTER (WHERE t.name IS NOT NULL), '{}') AS tags
+      `SELECT e.id, e.text, e.emotion, e.emotion_score, e.recommendation, e.created_at,
+              COALESCE(array_agg(t.name) FILTER (WHERE t.name IS NOT NULL), '{}') AS tags
        FROM entries e
        LEFT JOIN entry_tags et ON et.entry_id = e.id
        LEFT JOIN tags t ON t.id = et.tag_id
@@ -100,9 +113,28 @@ exports.getEntry = async (req, res) => {
       text: r.text,
       emotion: r.emotion,
       score: r.emotion_score,
+      recommendation: r.recommendation,
       tags: r.tags,
       createdAt: r.created_at,
     });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Server error' });
+  }
+};
+
+exports.deleteEntry = async (req, res) => {
+  const userId = req.user.id;
+  const entryId = parseInt(req.params.id);
+  if (isNaN(entryId)) return res.status(400).json({ error: 'Invalid entry id' });
+
+  try {
+    const result = await db.query(
+      'DELETE FROM entries WHERE id = $1 AND user_id = $2 RETURNING id',
+      [entryId, userId]
+    );
+    if (!result.rows.length) return res.status(404).json({ error: 'Entry not found' });
+    res.json({ message: 'Deleted' });
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Server error' });

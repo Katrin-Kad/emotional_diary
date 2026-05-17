@@ -1,0 +1,100 @@
+.diaryTop {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  margin-bottom: 36px;
+}
+
+.mascotCol {
+  width: 280px;
+  flex-shrink: 0;
+  margin-left: -50px;
+}
+
+.entryCol {
+  flex: 1;
+  min-width: 0;
+}
+
+.sectionTitle {
+  font-family: 'Inria Sans', Georgia, serif;
+  font-weight: 700;
+  font-size: 1.4rem;
+  color: var(--accent);
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.tagsRow {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 8px;
+  margin: 12px 0 16px;
+  justify-content: center;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.tagsRow::-webkit-scrollbar { display: none; }
+
+.tagChip {
+  padding: 5px 16px;
+  border-radius: 20px;
+  border: 1.5px solid #d1d8f0;
+  background: #fff;
+  cursor: pointer;
+  font-family: 'Jost', sans-serif;
+  font-weight: 300;
+  font-size: 0.85rem;
+  transition: all 0.2s;
+  color: rgba(0, 0, 0, 0.69);
+}
+.tagChip:hover { border-color: var(--accent); color: var(--accent); }
+.tagChipSelected {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+.tagChipSelected:hover { opacity: 0.88; color: #fff; }
+
+.entriesHeader {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.entriesTitle {
+  font-family: 'Inria Sans', Georgia, serif;
+  font-weight: 700;
+  font-size: 1.4rem;
+  color: var(--accent);
+  margin-bottom: 4px;
+}
+
+.datePickerRow {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--accent);
+  font-family: 'Jost', sans-serif;
+  font-weight: 500;
+  font-size: 0.88rem;
+}
+.datePickerRow input[type="date"] {
+  border: none;
+  background: transparent;
+  color: var(--accent);
+  font-family: 'Jost', sans-serif;
+  font-weight: 500;
+  font-size: 0.88rem;
+  cursor: pointer;
+  outline: none;
+  padding: 2px;
+}
+.datePickerRow input[type="date"]:focus {
+  background: #f0f4ff;
+  border-radius: 6px;
+}
+
+@media (max-width: 640px) {
+  .diaryTop { flex-direction: column; align-items: center; }
+  .mascotCol { width: 120px; }
+}

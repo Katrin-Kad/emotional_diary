@@ -6,7 +6,7 @@ export default defineConfig({
   server: {
     port: 5173,
     proxy: {
-      '^/(auth|entries|tags|analyze-emotion|recommendation|ui-reaction|stats)': {
+      '^/(auth|entries|tags|analyze-emotion|recommendation|ui-reaction|stats|strategies|api-docs)': {
         target: 'http://localhost:3000',
         changeOrigin: true,
       },

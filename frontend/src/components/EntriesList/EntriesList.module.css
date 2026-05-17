@@ -1,0 +1,100 @@
+.entryCard {
+  border-radius: var(--radius);
+  padding: 16px 16px 0;
+  margin-bottom: 12px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: var(--shadow);
+  transition: box-shadow 0.2s;
+}
+.entryCard:hover {
+  box-shadow: 0 6px 20px rgba(78, 135, 242, 0.15);
+}
+
+.entryCardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 8px;
+}
+
+.entryTagsLine {
+  font-family: 'Jost', sans-serif;
+  font-weight: 400;
+  font-size: 0.83rem;
+  color: rgba(0, 0, 0, 0.69);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.entryTagChip {
+  display: inline-block;
+  padding: 2px 12px;
+  border-radius: 20px;
+  border: 1.5px solid #d1d8f0;
+  font-family: 'Jost', sans-serif;
+  font-weight: 300;
+  font-size: 0.82rem;
+  color: rgba(0, 0, 0, 0.69);
+  background: #fff;
+}
+
+.entryActions {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.btnIconDelete {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  opacity: 0.45;
+  transition: opacity 0.2s;
+  display: flex;
+  align-items: center;
+}
+.btnIconDelete:hover { opacity: 1; }
+.btnIconDelete img { width: 18px; height: 18px; }
+
+.entrySituation {
+  font-family: 'Jost', sans-serif;
+  font-weight: 400;
+  font-size: 0.9rem;
+  color: rgba(0, 0, 0, 0.69);
+  margin-bottom: 12px;
+  line-height: 1.5;
+}
+
+.sitLabel {
+  color: var(--accent);
+  font-weight: 500;
+  font-size: 0.83rem;
+}
+
+.pagination {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+  margin-top: 14px;
+}
+
+.pageBtn {
+  padding: 6px 12px;
+  border: 1.5px solid #dde2f5;
+  background: #fff;
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: 'Jost', sans-serif;
+  font-size: 0.85rem;
+  transition: all 0.2s;
+}
+.pageBtn:hover { border-color: var(--accent); color: var(--accent); }
+.pageBtnActive {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
