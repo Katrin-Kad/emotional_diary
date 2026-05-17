@@ -4,7 +4,7 @@ import Auth, { applyTheme } from './components/Auth/Auth';
 import NewEntry from './components/NewEntry/NewEntry';
 import Stats from './components/Stats/Stats';
 import styles from './App.module.css';
-import { ym, YM_ID } from './ym';
+import { ym } from './ym';
 
 export default function App() {
   const [authed, setAuthed] = useState(null);
@@ -16,12 +16,8 @@ export default function App() {
       .catch(() => setAuthed(false));
   }, []);
 
-  // Инициализируем счётчик и трекаем первую страницу после авторизации
   useEffect(() => {
-    if (!authed || !YM_ID) return;
-    window.ym?.(YM_ID, 'init', {
-      clickmap: true, trackLinks: true, accurateTrackBounce: true, webvisor: true,
-    });
+    if (!authed) return;
     ym('hit', '/diary');
   }, [authed]);
 

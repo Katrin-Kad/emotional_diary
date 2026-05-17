@@ -1,7 +1,7 @@
 import { VARIANT } from './variant.js';
 
 // Замени на свой ID счётчика из Яндекс Метрики
-export const YM_ID = 0; // например: 98765432
+export const YM_ID = 109271946;
 
 export { VARIANT };
 
