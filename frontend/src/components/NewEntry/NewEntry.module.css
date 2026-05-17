@@ -103,5 +103,5 @@
   .diaryTop { flex-direction: column; align-items: center; margin-bottom: 20px; }
   .mascotCol { width: 180px; margin-left: 0; }
   .tagsRow { flex-wrap: wrap; justify-content: flex-start; }
-  .resultBand { margin: 14px -16px -16px; }
+  .resultBand { margin: 14px -16px 0px; }
 }
