@@ -43,6 +43,12 @@
   gap: 14px;
 }
 
+@media (max-width: 640px) {
+  .content { padding: 16px 12px 32px; }
+  .recommendedBadge { display: none; }
+  .strategyCard { gap: 10px; padding: 12px; }
+}
+
 /* ── Card ── */
 .card {
   background: #fff;

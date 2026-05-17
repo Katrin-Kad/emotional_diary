@@ -41,6 +41,12 @@
 }
 .formRow > * { flex: 1; }
 
+@media (max-width: 480px) {
+  .authCard { padding: 24px 20px; }
+  .authLogo { font-size: 3rem; }
+  .formRow { flex-direction: column; gap: 16px; }
+}
+
 .formGroup {
   display: flex;
   flex-direction: column;

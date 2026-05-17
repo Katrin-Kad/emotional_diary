@@ -294,3 +294,13 @@ body[data-variant="b"] .entry-emotion-band::before {
   color: rgba(0,0,0,0.35);
   font-family: 'Jost', sans-serif;
 }
+
+@media (max-width: 640px) {
+  .card { padding: 16px; }
+  /* Prevent iOS auto-zoom on input focus */
+  input[type="email"],
+  input[type="password"],
+  input[type="text"],
+  select,
+  textarea { font-size: 16px; }
+}
