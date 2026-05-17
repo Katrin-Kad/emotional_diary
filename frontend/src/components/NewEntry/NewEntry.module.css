@@ -98,13 +98,13 @@
   overflow: hidden;
 }
 
-.resultBand {
-  margin: 14px -24px 0;
+.entryCardInner {
+  padding: 20px 24px;
 }
 
 @media (max-width: 640px) {
   .diaryTop { flex-direction: column; align-items: center; margin-bottom: 20px; }
   .mascotCol { width: 180px; margin-left: 0; }
   .tagsRow { flex-wrap: wrap; justify-content: flex-start; }
-  .resultBand { margin: 14px -16px 0; }
+  .entryCardInner { padding: 16px; }
 }

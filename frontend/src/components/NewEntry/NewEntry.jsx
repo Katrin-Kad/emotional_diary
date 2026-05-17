@@ -87,37 +87,40 @@ export default function NewEntry() {
         </div>
 
         <div className={styles.entryCol}>
-          <div className={`card ${styles.entryCard}`} style={result ? { paddingBottom: 0 } : undefined}>
-            <div className={styles.sectionTitle}>Новая запись</div>
-            <form onSubmit={submit} className={styles.formGroup} style={{ gap: 10 }}>
-              <textarea
-                value={text}
-                onChange={e => setText(e.target.value)}
-                placeholder={placeholder}
-                required
-                style={{ minHeight: 80 }}
-              />
-              <div className={styles.tagsRow}>
-                {allTags.map(tag => (
-                  <button
-                    key={tag}
-                    type="button"
-                    className={`${styles.tagChip} ${selectedTags.includes(tag) ? styles.tagChipSelected : ''}`}
-                    onClick={() => toggleTag(tag)}
-                  >
-                    {tag}
-                  </button>
-                ))}
-              </div>
-              {error && <p className="error">{error}</p>}
-              <button className="btn btn-primary btn-center" type="submit" disabled={loading || !text.trim()}>
-                {loading ? 'Анализирую...' : 'Добавить'}
-              </button>
-            </form>
+          <div className={`card ${styles.entryCard}`} style={{ padding: 0 }}>
+            <div className={styles.entryCardInner}>
+              <div className={styles.sectionTitle}>Новая запись</div>
+              <form onSubmit={submit} className={styles.formGroup} style={{ gap: 10 }}>
+                <textarea
+                  value={text}
+                  onChange={e => setText(e.target.value)}
+                  placeholder={placeholder}
+                  required
+                  style={{ minHeight: 80 }}
+                />
+                <div className={styles.tagsRow}>
+                  {allTags.map(tag => (
+                    <button
+                      key={tag}
+                      type="button"
+                      className={`${styles.tagChip} ${selectedTags.includes(tag) ? styles.tagChipSelected : ''}`}
+                      onClick={() => toggleTag(tag)}
+                    >
+                      {tag}
+                    </button>
+                  ))}
+                </div>
+                {error && <p className="error">{error}</p>}
+                <button className="btn btn-primary btn-center" type="submit" disabled={loading || !text.trim()}>
+                  {loading ? 'Анализирую...' : 'Добавить'}
+                </button>
+              </form>
+            </div>
 
             {result && (
               <div
-                className={`entry-emotion-band band-${result.emotion} ${styles.resultBand}`}
+                className={`entry-emotion-band band-${result.emotion}`}
+                style={{ margin: '14px 0 0' }}
               >
                 <span className={`emotion-badge badge-${result.emotion}`}>{result.emotion}</span>
                 <span className="entry-recommendation">{result.recommendation}</span>
