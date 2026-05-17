@@ -32,7 +32,7 @@ LABEL_MAP = {
     "disgust":       "отвращение",
 }
 
-token = os.getenv("HF_TOKEN")
+token = os.getenv("HF_TOKEN") or None
 
 try:
     print("Loading Aniemore/rubert-large-emotion-russian-cedr-m7...")
