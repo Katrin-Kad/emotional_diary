@@ -96,6 +96,6 @@
 
 @media (max-width: 640px) {
   .diaryTop { flex-direction: column; align-items: center; margin-bottom: 20px; }
-  .mascotCol { width: 120px; margin-left: 0; }
+  .mascotCol { width: 180px; margin-left: 0; }
   .tagsRow { flex-wrap: wrap; justify-content: flex-start; }
 }
