@@ -98,6 +98,10 @@
   overflow: hidden;
 }
 
+.entryCardWithResult {
+  padding-bottom: 0;
+}
+
 .resultBand {
   margin: 14px -24px 0;
 }

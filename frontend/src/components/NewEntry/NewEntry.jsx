@@ -87,7 +87,7 @@ export default function NewEntry() {
         </div>
 
         <div className={styles.entryCol}>
-          <div className={`card ${styles.entryCard}`}>
+          <div className={`card ${styles.entryCard} ${result ? styles.entryCardWithResult : ''}`}>
             <div className={styles.sectionTitle}>Новая запись</div>
             <form onSubmit={submit} className={styles.formGroup} style={{ gap: 10 }}>
               <textarea
