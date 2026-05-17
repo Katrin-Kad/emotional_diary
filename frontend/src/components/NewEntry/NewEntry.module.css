@@ -94,8 +94,14 @@
   border-radius: 6px;
 }
 
+.resultBand {
+  margin: 14px -24px -20px;
+  border-radius: 0 0 14px 14px;
+}
+
 @media (max-width: 640px) {
   .diaryTop { flex-direction: column; align-items: center; margin-bottom: 20px; }
   .mascotCol { width: 180px; margin-left: 0; }
   .tagsRow { flex-wrap: wrap; justify-content: flex-start; }
+  .resultBand { margin: 14px -16px -16px; }
 }

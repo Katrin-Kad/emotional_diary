@@ -117,8 +117,7 @@ export default function NewEntry() {
 
             {result && (
               <div
-                className={`entry-emotion-band band-${result.emotion}`}
-                style={{ margin: '14px -24px -20px', borderRadius: '0 0 14px 14px' }}
+                className={`entry-emotion-band band-${result.emotion} ${styles.resultBand}`}
               >
                 <span className={`emotion-badge badge-${result.emotion}`}>{result.emotion}</span>
                 <span className="entry-recommendation">{result.recommendation}</span>
