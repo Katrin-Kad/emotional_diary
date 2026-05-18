@@ -38,13 +38,13 @@ export default function App() {
           <nav className={styles.navTabs}>
             <button
               className={`${styles.navTab} ${tab === 'diary' ? styles.active : ''}`}
-              onClick={() => { setTab('diary'); ym('hit', '/diary'); }}
+              onClick={() => { setTab('diary'); ym('hit', '/diary'); ym('reachGoal', 'tab_diary'); }}
             >
               Дневник эмоций
             </button>
             <button
               className={`${styles.navTab} ${tab === 'stats' ? styles.active : ''}`}
-              onClick={() => { setTab('stats'); ym('hit', '/analytics'); }}
+              onClick={() => { setTab('stats'); ym('hit', '/analytics'); ym('reachGoal', 'tab_stats'); }}
             >
               Аналитика
             </button>
